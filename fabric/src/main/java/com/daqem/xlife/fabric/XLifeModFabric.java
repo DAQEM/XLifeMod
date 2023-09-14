@@ -6,6 +6,10 @@ import net.fabricmc.api.ModInitializer;
 public class XLifeModFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        XLife.init();
+        try {
+            XLife.initCommon();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.daqem.xlife.mixin;
 
 import com.daqem.xlife.XLife;
+import com.daqem.xlife.config.XLifeConfig;
 import com.daqem.xlife.player.XLifeServerPlayer;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
@@ -10,7 +11,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.UserBanList;
 import net.minecraft.server.players.UserBanListEntry;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,7 +19,6 @@ import net.minecraft.world.entity.player.ProfilePublicKey;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,8 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player implements XLifeServerPlayer {
-
-    @Shadow public abstract void attack(Entity entity);
 
     @Unique
     private int x_life_mod$lives = 10;
@@ -57,7 +54,12 @@ public abstract class ServerPlayerMixin extends Player implements XLifeServerPla
     private void x_life_mod$applyAttributeModifier() {
         ServerPlayer player = x_life_mod$getServerPlayer();
         AttributeInstance attribute = player.getAttribute(Attributes.MAX_HEALTH);
-        int modifierAmount = x_life_mod$lives * 2 - 20;
+        int modifierAmount;
+        if (XLifeConfig.invertHearts.get()) {
+            modifierAmount = x_life_mod$lives * 2 - 20;
+        } else {
+            modifierAmount = -x_life_mod$lives * 2 + 2;
+        }
         int health = x_life_mod$lives * 2;
         if (attribute != null) {
             AttributeModifier modifier = attribute.getModifier(XLife.ATTRIBUTE_MODIFIER_ID);
