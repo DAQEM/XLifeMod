@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "com.daqem.xlife.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+    "client.LocalPlayerMixin",
+    "client.RenderSystemMixin"
+  ],
+  "mixins": [
+    "ServerPlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

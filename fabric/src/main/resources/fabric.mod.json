@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "xlife",
+  "version": "${version}",
+  "name": "X Life",
+  "description": "",
+  "authors": [
+    "DAQEM"
+  ],
+  "contact": {
+    "homepage": "https://daqem.com/",
+    "sources": "https://github.com/DAQEM/XLifeMod"
+  },
+  "license": "Insert License Here",
+  "icon": "assets/xlife/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.daqem.xlife.fabric.XLifeModFabric"
+    ]
+  },
+  "mixins": [
+    "xlife.mixins.json",
+    "xlife-common.mixins.json"
+  ],
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.2",
+    "architectury": ">=6.5.77",
+    "supermartijn642configlib": ">=1.1.8"
+  }
+}
