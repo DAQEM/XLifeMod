@@ -1,7 +1,6 @@
 package com.daqem.xlife.mixin.client;
 
 import com.daqem.xlife.player.XLifeLocalPlayer;
-import com.daqem.xlife.player.XLifePlayer;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -34,5 +33,10 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements X
     @Override
     public void x_life_mod$removeLife() {
         x_life_mod$lives--;
+    }
+
+    @Override
+    public void x_life_mod$addLife() {
+        x_life_mod$lives++;
     }
 }

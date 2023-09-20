@@ -8,6 +8,7 @@
     "client.RenderSystemMixin"
   ],
   "mixins": [
+    "PlayerMixin",
     "ServerPlayerMixin"
   ],
   "injectors": {

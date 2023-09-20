@@ -50,6 +50,11 @@ public abstract class ServerPlayerMixin extends Player implements XLifeServerPla
         x_life_mod$setLives(x_life_mod$getLives() - 1);
     }
 
+    @Override
+    public void x_life_mod$addLife() {
+        x_life_mod$setLives(x_life_mod$getLives() + 1);
+    }
+
     @Unique
     private void x_life_mod$applyAttributeModifier() {
         ServerPlayer player = x_life_mod$getServerPlayer();

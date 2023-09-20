@@ -6,5 +6,8 @@ public interface XLifePlayer {
 
     void x_life_mod$setLives(int lives);
 
+    @SuppressWarnings("unused")
     void x_life_mod$removeLife();
+
+    void x_life_mod$addLife();
 }
