@@ -16,8 +16,8 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements X
     @Unique
     private int x_life_mod$lives = 0;
 
-    public LocalPlayerMixin(ClientLevel clientLevel, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey) {
-        super(clientLevel, gameProfile, profilePublicKey);
+    public LocalPlayerMixin(ClientLevel clientLevel, GameProfile gameProfile) {
+        super(clientLevel, gameProfile);
     }
 
     @Override

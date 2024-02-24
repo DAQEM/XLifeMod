@@ -16,7 +16,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.daqem.xlife.fabric.XLifeModFabric"
+      "com.daqem.xlife.fabric.XLifeFabric"
+    ],
+    "client": [
+      "com.daqem.xlife.fabric.XLifeClientFabric"
     ]
   },
   "mixins": [

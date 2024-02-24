@@ -1,10 +1,9 @@
 package com.daqem.xlife.mixin.client;
 
 import com.daqem.xlife.XLife;
-import com.daqem.xlife.player.XLifeLocalPlayer;
+import com.daqem.xlife.config.XLifeConfig;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -16,14 +15,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.UUID;
-
 @Mixin(RenderSystem.class)
 public abstract class RenderSystemMixin {
 
+    @Unique
+    private static final ResourceLocation x_life_mod$GUI_ICONS_LOCATION = new ResourceLocation("textures/gui/icons.png");
+
     @Inject(method = "setShaderTexture(ILnet/minecraft/resources/ResourceLocation;)V", at = @At("TAIL"))
     private static void setShaderTexture(int i, ResourceLocation resourceLocation, CallbackInfo ci) {
-        if (resourceLocation.equals(Gui.GUI_ICONS_LOCATION)) {
+        if (resourceLocation.equals(x_life_mod$GUI_ICONS_LOCATION)) {
             if (RenderSystem.isOnRenderThread()) {
                 LocalPlayer player = Minecraft.getInstance().player;
                 if (player != null) {
@@ -44,16 +44,16 @@ public abstract class RenderSystemMixin {
     @Unique
     private static ResourceLocation x_life_mod$getHeartColorLocation(int lives) {
         return switch (lives) {
-            case 1 -> XLife.getId("textures/gui/black.png");
-            case 2 -> XLife.getId("textures/gui/lime.png");
-            case 3 -> XLife.getId("textures/gui/cyan.png");
-            case 4 -> XLife.getId("textures/gui/yellow.png");
-            case 5 -> XLife.getId("textures/gui/purple.png");
-            case 6 -> XLife.getId("textures/gui/pink.png");
-            case 7 -> XLife.getId("textures/gui/orange.png");
-            case 8 -> XLife.getId("textures/gui/green.png");
-            case 9 -> XLife.getId("textures/gui/blue.png");
-            default -> Gui.GUI_ICONS_LOCATION;
+            case 1 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/black.png") : x_life_mod$GUI_ICONS_LOCATION;
+            case 2 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/lime.png") : XLife.getId("textures/gui/blue.png");
+            case 3 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/cyan.png") : XLife.getId("textures/gui/green.png");
+            case 4 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/yellow.png") : XLife.getId("textures/gui/orange.png");
+            case 5 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/purple.png") : XLife.getId("textures/gui/pink.png");
+            case 6 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/pink.png") : XLife.getId("textures/gui/purple.png");
+            case 7 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/orange.png") : XLife.getId("textures/gui/yellow.png");
+            case 8 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/green.png") : XLife.getId("textures/gui/cyan.png");
+            case 9 -> XLifeConfig.invertHearts.get() ? XLife.getId("textures/gui/blue.png") : XLife.getId("textures/gui/lime.png");
+            default -> XLifeConfig.invertHearts.get() ? x_life_mod$GUI_ICONS_LOCATION : XLife.getId("textures/gui/black.png");
         };
     }
 }

@@ -88,12 +88,12 @@ publishing {
 }
 
 curseforge {
-    apiKey = System.getenv('CURSEFORGE_API_KEY')
+    apiKey = System.getenv("CURSEFORGE_API_KEY")
     project {
         id = rootProject.curse_forge_project_id
-        releaseType = rootProject.curse_forge_release_type
+        releaseType = rootProject.release_type
         changelogType = "markdown"
-//        changelog = rootProject.file('changelog.md')
+        changelog = rootProject.file('changelog.md')
         addGameVersion "$rootProject.minecraft_version"
         addGameVersion "Java 17"
         addGameVersion "Fabric"
@@ -107,29 +107,24 @@ curseforge {
             displayName = "X Life Mod Fabric $rootProject.minecraft_version - $rootProject.mod_version"
         }
 
-        addArtifact(sourcesJar) {
+        addArtifact(remapSourcesJar) {
         }
     }
-    options {
-        forgeGradleIntegration = false
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_API_KEY")
+    projectId = rootProject.modrinth_project_id
+    versionName = "X Life Mod Fabric $rootProject.minecraft_version - $rootProject.mod_version"
+    versionNumber = "$rootProject.mod_version"
+    versionType = "$rootProject.release_type"
+    uploadFile = remapJar
+    additionalFiles = [remapSourcesJar]
+    gameVersions = ["$rootProject.minecraft_version"]
+    loaders = ["fabric"]
+    changelog = rootProject.file('changelog.md').text
+    dependencies {
+        required.project "architectury-api"
+        required.project "supermartijn642s-config-lib"
     }
 }
-
-afterEvaluate {
-    tasks.curseforge389103.dependsOn remapJar
-}
-
-//modrinth {
-//    token = System.getenv("MODRINTH_API_KEY")
-//    projectId = "H3eKhxi7"
-//    versionName = "Arc Fabric $rootProject.minecraft_version - $rootProject.mod_version"
-//    versionNumber = "$rootProject.mod_version"
-//    versionType = "$rootProject.curse_forge_release_type"
-//    uploadFile = remapJar
-//    gameVersions = ["$rootProject.minecraft_version"]
-//    loaders = ["fabric"]
-//    dependencies {
-//        required.project "architectury-api"
-//        required.project "supermartijn642s-config-lib"
-//    }
-//}
