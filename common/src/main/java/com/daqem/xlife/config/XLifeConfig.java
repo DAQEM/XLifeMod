@@ -11,6 +11,8 @@ public class XLifeConfig {
     public static final Supplier<Boolean> invertHearts;
     public static final Supplier<Boolean> enchantedGoldenAppleAddsLife;
 
+    public static void init() {
+    }
 
     static {
         IConfigBuilder config = ConfigBuilders.newTomlConfig("xlife", null, false);

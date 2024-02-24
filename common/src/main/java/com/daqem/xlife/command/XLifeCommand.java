@@ -25,7 +25,7 @@ public class XLifeCommand {
                                                     if (player instanceof XLifeServerPlayer serverPlayer) {
                                                         serverPlayer.x_life_mod$setLives(lives);
                                                     }
-                                                    context.getSource().sendSuccess(XLife.translate("commands.xlife.set.lives.success", player.getDisplayName(), lives), true);
+                                                    context.getSource().sendSuccess(() -> XLife.translate("commands.xlife.set.lives.success", player.getDisplayName(), lives), true);
                                                     return 1;
                                                 })))))
 

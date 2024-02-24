@@ -1,4 +1,6 @@
 {
+  "item.xlife.extra_life": "Extra Life",
+  "itemGroup.xlife.xlife_tab": "X-Life",
   "xlife.commands.xlife.set.lives.success": "Set %s's lives to %s",
   "xlife.disconnect.ban": "You are out of lives."
 }

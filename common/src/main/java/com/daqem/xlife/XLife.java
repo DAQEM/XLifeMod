@@ -1,8 +1,11 @@
 package com.daqem.xlife;
 
 import com.daqem.xlife.config.XLifeConfig;
+import com.daqem.xlife.entity.XLifeEntities;
 import com.daqem.xlife.event.PlayerJoinEvent;
 import com.daqem.xlife.event.RegisterCommandsEvent;
+import com.daqem.xlife.item.XLifeItems;
+import com.daqem.xlife.particle.XLifeParticles;
 import com.mojang.logging.LogUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -16,11 +19,11 @@ public class XLife {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public static void initCommon() {
+        XLifeItems.init();
+        XLifeEntities.init();
+        XLifeParticles.init();
+        XLifeConfig.init();
         registerEvents();
-
-        if (isDebug()) {
-            LOGGER.info("Debug mode enabled");
-        }
     }
 
     public static void registerEvents() {

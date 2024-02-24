@@ -30,8 +30,8 @@ public abstract class ServerPlayerMixin extends Player implements XLifeServerPla
     @Unique
     private int x_life_mod$lives = 10;
 
-    public ServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile, @Nullable ProfilePublicKey profilePublicKey) {
-        super(level, blockPos, f, gameProfile, profilePublicKey);
+    public ServerPlayerMixin(Level level, BlockPos blockPos, float f, GameProfile gameProfile) {
+        super(level, blockPos, f, gameProfile);
     }
 
     @Override
@@ -65,7 +65,6 @@ public abstract class ServerPlayerMixin extends Player implements XLifeServerPla
         } else {
             modifierAmount = -x_life_mod$lives * 2 + 2;
         }
-        int health = x_life_mod$lives * 2;
         if (attribute != null) {
             AttributeModifier modifier = attribute.getModifier(XLife.ATTRIBUTE_MODIFIER_ID);
             if (modifier != null) {
@@ -74,8 +73,8 @@ public abstract class ServerPlayerMixin extends Player implements XLifeServerPla
             AttributeModifier modifier1 = new AttributeModifier(XLife.ATTRIBUTE_MODIFIER_ID, "X Life Health", modifierAmount, AttributeModifier.Operation.ADDITION);
             attribute.addPermanentModifier(modifier1);
         }
-        if (health < player.getHealth()) {
-            player.setHealth(health);
+        if (player.getHealth() > player.getMaxHealth()) {
+            player.setHealth(player.getMaxHealth());
         }
     }
 
